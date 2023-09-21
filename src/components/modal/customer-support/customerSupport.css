@@ -1,0 +1,93 @@
+.ReactModal__Content {
+  border-radius: 15px !important;
+  width: 500px;
+  padding: 0 !important;
+  overflow-x: hidden !important;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  border: none !important;
+}
+
+.ReactModal__Overlay {
+  margin: 20% 75%;
+  z-index: 10;
+}
+
+.ReactModal__Overlay {
+  opacity: 0;
+  transition: .3s ease-in-out;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+  animation: swing ease-in-out .7s;
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+  transition: .2s ease-in-out;
+}
+
+.header-modal {
+  border-bottom: .5px solid #d8d8d8;
+}
+
+.footer-modal {
+  border-top: .5px solid #d8d8d8;
+}
+
+
+.hr-modal {
+  position: absolute;
+  top: 50%;
+}
+
+.container-modal {
+  padding: 20px;
+}
+
+.body-modal {
+  width: 78%;
+}
+
+.chat-right {
+  background-color: #48B0F7;
+  border-radius: 3px;
+  color: white;
+  margin-bottom: 15px;
+  padding: 5px 10px;
+  display: inline-block;
+  font-size: 15px !important;
+  font-style: italic;
+  width: fit-content !important;
+  align-self: end;
+}
+
+.chat-left {
+  background-color: #F5F6F7;
+  border-radius: 3px;
+  color: #8f8f8f;
+  margin-bottom: 15px;
+  padding: 5px 10px;
+  display: inline-block;
+  font-size: 15px !important;
+  font-style: italic;
+  width: fit-content !important;
+}
+
+.container-chat-left {
+  display: flex;
+  width: 85%;
+}
+
+.img-profile {
+  width: 30px !important;
+  margin-right: 17px;
+  height: 30px !important;
+}
+
+.input-modal {
+  border: unset;
+  outline: unset;
+  margin-left: 5px;
+  padding: 5px 10px;
+}
