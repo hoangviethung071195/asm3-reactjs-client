@@ -1,0 +1,3 @@
+interface GlobalSettingModel {
+  storageApiEndpoint: string;
+}

@@ -1,0 +1,12 @@
+.item {
+  padding: 20px;
+  @media (max-width: 575px) {
+    padding: 100px;
+  }
+  @media (max-width: 414px) {
+    padding: 50px;
+  }
+  @media (max-width: 280px) {
+    padding: 20px;
+  }
+}

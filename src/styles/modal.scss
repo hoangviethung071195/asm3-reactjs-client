@@ -1,0 +1,44 @@
+@import 'animate.css';
+
+.ReactModal__Content {
+  // default
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  right: 40px;
+  bottom: 40px;
+  border: 1px solid #ccc;
+  background: #fff;
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+
+  // custom
+  border-radius: 15px !important;
+  width: 500px;
+  padding: 0 !important;
+  overflow-x: hidden !important;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  border: none !important;
+}
+
+.ReactModal__Overlay {
+  margin: 20% 75%;
+  z-index: 10;
+}
+
+.ReactModal__Overlay {
+  opacity: 0;
+  transition: 0.3s ease-in-out;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+  animation: swing ease-in-out 0.7s;
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+  transition: 0.2s ease-in-out;
+}

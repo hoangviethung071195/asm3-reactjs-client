@@ -1,0 +1,17 @@
+@media (max-width: 991px) {
+  .banner {
+    background-position-x: 70%;
+  }
+}
+
+@media (max-width: 575px) {
+  .banner {
+    background-position-x: 74%;
+  }
+}
+
+@media (min-width: 992px) {
+  .main-layout {
+    filter: blur(0);
+  }
+}

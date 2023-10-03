@@ -1,0 +1,201 @@
+html {
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: all 0.5s;
+  overflow-x: hidden;
+}
+
+.main-layout {
+  filter: blur(0);
+  transition: all 0.2s;
+}
+
+.filter-blur {
+  filter: blur(14px);
+}
+
+ul {
+  list-style: none;
+}
+
+p {
+  margin-bottom: 0;
+}
+
+a {
+  cursor: pointer;
+}
+
+img {
+  width: 100%;
+}
+
+.text-1 {
+  font-size: 15px !important;
+  font-style: italic;
+  color: black;
+  font-weight: 400 !important;
+}
+
+.text-2 {
+  font-size: 14px !important;
+  font-style: italic;
+  color: #878787;
+}
+
+.text-h1 {
+  font-size: 30px !important;
+  font-style: italic;
+  color: black;
+  font-weight: 400;
+}
+
+.text-h2 {
+  font-size: 16px !important;
+  font-style: italic;
+  color: black;
+  font-weight: 400 !important;
+  letter-spacing: 2px;
+}
+
+.text-hover {
+  transition: all 0.2s;
+}
+
+.text-hover i {
+  transition: all 0.2s;
+}
+
+.text-hover:hover {
+  color: #e7c382 !important;
+  cursor: pointer;
+}
+
+.text-hover:hover i {
+  color: #e7c382 !important;
+}
+
+.text-price {
+  font-size: 14px !important;
+  font-style: italic;
+}
+
+.font-size-1 {
+  font-size: 14px !important;
+}
+
+.btn {
+  border-radius: 0;
+}
+
+.hover-effect-overlay {
+  position: relative;
+  cursor: pointer;
+}
+
+.hover-effect-overlay::after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: white;
+  position: absolute;
+  top: 0;
+  opacity: 0;
+  transition: all 0.5s;
+}
+
+.hover-effect-overlay:hover.hover-effect-overlay::after {
+  opacity: 0.4;
+}
+
+.focus-outline-none:focus {
+  outline: unset !important;
+}
+
+.form-detail {
+  display: flex;
+  width: 400px;
+}
+
+.btn-special {
+  width: 170px;
+  z-index: 10;
+}
+
+.input-number {
+  width: 30px !important;
+  input {
+    background: none !important;
+  }
+}
+
+.input-btn {
+  position: absolute;
+  right: 40px;
+}
+
+.initial-effect {
+  animation: fadeIn ease-in-out 0.7s;
+  animation: zoomIn ease-in-out 0.7s;
+}
+
+.banner {
+  background-image: url('assets/images/banner1.jpg');
+  background-size: cover;
+  background-position-x: 44%;
+}
+
+.reset-anchor {
+  text-decoration: none;
+  color: inherit;
+}
+
+.form-control {
+  border-radius: 0 !important;
+}
+
+input {
+  outline: none;
+}
+
+input.form-control {
+  box-shadow: none !important;
+}
+
+select.form-control {
+  box-shadow: none !important;
+}
+
+.close-icon {
+  opacity: 0.3;
+  cursor: pointer;
+  transition: all 0.2s;
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
+.hover-effect {
+  opacity: 1;
+  transition: all 0.2s;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
+@import 'bootstrap/dist/css/bootstrap.css';
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+@import '@fancyapps/ui/dist/fancybox/fancybox.css';
+@import './styles/modal.scss';
+@import './styles/single-styles.scss';
+@import './styles/query.scss';
+@import './styles/third-party.scss';
