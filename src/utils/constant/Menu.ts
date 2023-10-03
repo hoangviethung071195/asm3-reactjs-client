@@ -1,3 +1,5 @@
+import { MenuModel } from 'models/Menu.model';
+
 export const MENU: MenuModel[] = [
   {
     menuName: 'Dashboard',

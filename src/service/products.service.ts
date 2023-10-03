@@ -4,6 +4,8 @@ import { DEFAULT_PAGINATION } from '../utils/constant/Pagination';
 import { RequestMethod } from '../utils/constant/RequestMethod';
 import { requestJson } from '../utils/helpers/api';
 import { getValuableFieldsObj } from 'utils/helpers/object';
+import { PagingData } from 'models/Pagination.model';
+import { ProductModel } from 'models/Product.model';
 
 export function createProduct(body: ProductModel) {
   return requestJson(PRODUCT_PATH, RequestMethod.Post, body);

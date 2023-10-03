@@ -5,6 +5,7 @@ import { getFileUrl } from '../../utils/helpers/file';
 import { getOrder } from '../../service/orders.service';
 import { getVNDTotalAmount, getVNDUnit } from '../../utils/helpers/order';
 import ImageLoader from 'components/image-loader/ImageLoader';
+import { OrderModel } from 'models/Order.model';
 
 function DetailOrder(props: PropsWithChildren) {
   const [order, setOrder] = useState<OrderModel>(initialOrder);

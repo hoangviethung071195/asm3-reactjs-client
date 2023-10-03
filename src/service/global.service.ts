@@ -1,3 +1,4 @@
+import { GlobalSettingModel } from 'models/GlobalSetting.model';
 import { requestJson } from '../utils/helpers/api';
 
 export const globalSetting: GlobalSettingModel = {

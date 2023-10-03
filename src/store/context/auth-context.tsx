@@ -6,6 +6,9 @@ import { signin, signup } from '../../service/authentication.service';
 import { deleteProductsInCartByUser, getCartByUser, updateCartByUser } from '../../service/carts.service';
 import { addOrder } from '../../service/orders.service';
 import { getCurrentUser, removeCurrentUser, updateCurrentUser } from '../../utils/helpers/cookieStorage';
+import { UserModel } from 'models/User.model';
+import { CartModel } from 'models/Cart.model';
+import { OrderInfoModel } from 'models/Order.model';
 
 const AuthContext = createContext<{
   currentUser: UserModel;

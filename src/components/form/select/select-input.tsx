@@ -1,5 +1,7 @@
 import { PropsWithChildren } from "react";
 import s from './select-input.module.scss';
+import { OptionModel } from 'models/Option.model';
+import { BaseType } from 'models/General';
 
 export default function SelectInput(props: PropsWithChildren<{
   onChange(sortBy: string): void;

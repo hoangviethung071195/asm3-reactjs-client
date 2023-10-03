@@ -1,3 +1,4 @@
+import { UserModel } from 'models/User.model';
 import { RequestMethod } from '../utils/constant/RequestMethod';
 import { requestJson } from '../utils/helpers/api';
 

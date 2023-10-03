@@ -1,3 +1,4 @@
+import { UserModel } from 'models/User.model';
 import { PLURAL, USER_PATH } from '../utils/constant/ApiPath';
 import { RequestMethod } from '../utils/constant/RequestMethod';
 import { requestJson } from '../utils/helpers/api';

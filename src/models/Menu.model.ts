@@ -1,4 +1,4 @@
-interface MenuModel {
+export interface MenuModel {
   menuName: string;
   href: string;
 }

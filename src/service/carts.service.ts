@@ -1,3 +1,4 @@
+import { CartModel } from 'models/Cart.model';
 import { CART_PATH } from '../utils/constant/ApiPath';
 import { RequestMethod } from '../utils/constant/RequestMethod';
 import { requestJson } from '../utils/helpers/api';

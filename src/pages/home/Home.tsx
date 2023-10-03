@@ -6,6 +6,7 @@ import List from "../../components/product/list/List";
 import { getProducts } from "../../service/products.service";
 import { CATEGORIES } from '../../utils/constant/Category';
 import { scrollToTop } from '../../utils/helpers/browser';
+import { ProductModel } from 'models/Product.model';
 
 function Home(props: PropsWithChildren) {
   const [products, setProducts] = useState<ProductModel[]>([]);

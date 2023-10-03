@@ -1,1 +1,1 @@
-type BaseType = number | string | boolean;
+export type BaseType = number | string | boolean;

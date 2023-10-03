@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { ProductModel } from 'models/Product.model';
 
 const initialPopupState: {
   isShowPopup: boolean;

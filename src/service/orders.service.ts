@@ -1,3 +1,4 @@
+import { OrderInfoModel, OrderModel } from 'models/Order.model';
 import { ORDER_PATH, PLURAL } from '../utils/constant/ApiPath';
 import { RequestMethod } from '../utils/constant/RequestMethod';
 import { requestJson } from '../utils/helpers/api';

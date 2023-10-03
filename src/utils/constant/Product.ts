@@ -1,3 +1,6 @@
+import { OptionModel } from 'models/Option.model';
+import { ProductModel } from 'models/Product.model';
+
 const listProductFieldsAvailableSorting: (keyof ProductModel)[] = [
   'title',
   'category',

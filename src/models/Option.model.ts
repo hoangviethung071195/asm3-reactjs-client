@@ -1,4 +1,4 @@
-interface OptionModel<T> {
+export interface OptionModel<T> {
   label: string;
   value: T;
 }

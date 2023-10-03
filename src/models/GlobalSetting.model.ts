@@ -1,3 +1,3 @@
-interface GlobalSettingModel {
+export interface GlobalSettingModel {
   storageApiEndpoint: string;
 }

@@ -1,3 +1,4 @@
+import { OrderModel } from 'models/Order.model';
 
 export function getVNDUnit(amount: number | string) {
   return new Intl.NumberFormat("vi-VI", {

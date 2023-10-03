@@ -1,3 +1,5 @@
+import { UserModel } from 'models/User.model';
+
 const currentUserKW = "currentUser";
 
 // Hàm để thiết lập cookie

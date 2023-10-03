@@ -6,6 +6,7 @@ import { getVNDUnit } from '../../../utils/helpers/order';
 import { scrollToTop } from '../../../utils/helpers/browser';
 import { counterActions } from 'store/redux/popup';
 import s from './item.module.scss';
+import { ProductModel } from 'models/Product.model';
 
 function Item(props: PropsWithChildren<{
   product: ProductModel;

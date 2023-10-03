@@ -1,3 +1,4 @@
+import { ProductModel } from 'models/Product.model';
 import { CATEGORIES } from '../Category';
 
 export const initialProduct: ProductModel = {

@@ -1,4 +1,4 @@
-interface UserModel {
+export interface UserModel {
   _id?: string;
   userId?: string;
   email?: string;

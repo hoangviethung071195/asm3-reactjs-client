@@ -1,3 +1,5 @@
+import { OptionModel } from 'models/Option.model';
+
 export const CATEGORIES: OptionModel<string>[] = [
   {
     label: 'iphone',

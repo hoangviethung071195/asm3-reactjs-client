@@ -1,3 +1,4 @@
+import { RoomModel } from 'models/Room.model';
 import { CHAT_ROOM_PATH, PLURAL } from '../utils/constant/ApiPath';
 import { RequestMethod } from '../utils/constant/RequestMethod';
 import { requestJson } from '../utils/helpers/api';

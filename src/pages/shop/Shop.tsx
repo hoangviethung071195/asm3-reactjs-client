@@ -9,6 +9,8 @@ import { getValuableFieldsObj } from 'utils/helpers/object';
 import List from "../../components/product/list/List";
 import { getProducts } from "../../service/products.service";
 import { initialPagingData } from '../../utils/constant/models/pagination';
+import { PagingData } from 'models/Pagination.model';
+import { ProductModel } from 'models/Product.model';
 
 type productQueryParam = {
   page?: number;

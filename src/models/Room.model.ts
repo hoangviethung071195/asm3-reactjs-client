@@ -1,4 +1,4 @@
-interface RoomModel {
+export interface RoomModel {
   _id?: string;
   customerId: string;
   message: {

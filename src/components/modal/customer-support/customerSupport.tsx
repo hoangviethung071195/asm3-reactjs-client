@@ -10,6 +10,7 @@ import { API_ENDPOINT } from '../../../utils/constant/env';
 import { initialRoom } from '../../../utils/constant/models/room';
 import s from './customerSupport.module.scss';
 import { useLocation } from 'react-router-dom';
+import { RoomModel } from 'models/Room.model';
 
 const socket = io(API_ENDPOINT, {
   transports: ["websocket"],

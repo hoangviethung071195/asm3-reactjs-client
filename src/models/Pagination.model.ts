@@ -1,9 +1,9 @@
-interface PagingData<T> {
+export interface PagingData<T> {
   list: T[];
   total: number;
 }
 
-interface pagingEvent {
+export interface pagingEvent {
   page: number;
   limit: number;
 }

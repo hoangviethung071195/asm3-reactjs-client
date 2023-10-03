@@ -2,6 +2,7 @@ import { Pagination as PaginationMui } from '@mui/material';
 import { ceil } from 'lodash';
 import { PropsWithChildren } from 'react';
 import s from './Pagination.module.scss';
+import { pagingEvent } from 'models/Pagination.model';
 
 export default function Pagination(props: PropsWithChildren<{
   paging: {

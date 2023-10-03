@@ -1,4 +1,7 @@
-interface CartModel {
+import { ProductModel } from './Product.model';
+import { UserModel } from './User.model';
+
+export interface CartModel {
   _id?: string;
   product: ProductModel
   productId?: string;
@@ -6,7 +9,7 @@ interface CartModel {
   quantity: number;
 }
 
-interface CartsModel {
+export interface CartsModel {
   products: {
     productId: string;
     quantity: number;

@@ -8,6 +8,7 @@ import { getFileUrl } from '../../utils/helpers/file';
 import { getVNDUnit } from '../../utils/helpers/order';
 import { Fancybox } from '@fancyapps/ui';
 import ImageLoader from 'components/image-loader/ImageLoader';
+import { ProductModel } from 'models/Product.model';
 
 function Detail(props: PropsWithChildren) {
   const navigate = useNavigate();

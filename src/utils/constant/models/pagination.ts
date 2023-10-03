@@ -1,3 +1,4 @@
+import { PagingData, pagingEvent } from 'models/Pagination.model';
 import { DEFAULT_PAGINATION } from '../Pagination';
 
 export const initialPagingData: PagingData<any> = {

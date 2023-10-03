@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import AuthContext from "../../store/context/auth-context";
 import { getOrdersByUser } from '../../service/orders.service';
 import { getVNDTotalAmount } from '../../utils/helpers/order';
+import { OrderModel } from 'models/Order.model';
 
 function Orders(props: PropsWithChildren) {
   const [orders, setOrders] = useState<OrderModel[]>([]);

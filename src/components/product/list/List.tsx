@@ -1,3 +1,4 @@
+import { ProductModel } from 'models/Product.model';
 import Item from "../item/Item";
 import { PropsWithChildren } from 'react';
 
