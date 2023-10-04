@@ -2,7 +2,7 @@ import { PropsWithChildren, useContext, useEffect, useRef, useState } from "reac
 import { useNavigate, useParams } from "react-router-dom";
 import List from "../../components/product/list/List";
 import { getProduct, getProducts } from "../../service/products.service";
-import AuthContext from "../../store/context/auth-context";
+import AuthContext from "../../store/context/AuthContext";
 import { initialProduct } from '../../utils/constant/models/products';
 import { getFileUrl } from '../../utils/helpers/file';
 import { getVNDUnit } from '../../utils/helpers/order';

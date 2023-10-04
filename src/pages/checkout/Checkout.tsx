@@ -1,11 +1,13 @@
 import { ChangeEvent, useContext, useRef, useState } from "react";
-import AuthContext from "../../store/context/auth-context";
+import AuthContext from "../../store/context/AuthContext";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { PropsWithChildren } from 'react';
 import { getVNDUnit } from '../../utils/helpers/order';
+import LoadingOverlay from 'layout/loading-overlay/LoadingOverlay';
 
-function Checkout(props: PropsWithChildren) {
+export default function Checkout(props: PropsWithChildren) {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const ctx = useContext(AuthContext);
   const formEl = useRef<HTMLFormElement>(null);
@@ -32,16 +34,18 @@ function Checkout(props: PropsWithChildren) {
 
   function checkoutHandler() {
     if (!isValidInfo()) return;
+    setLoading(true);
     const { fullName, phone, address, email } = formEl.current!;
     ctx.onAddOrder({
-        userId: '',
-        fullName: fullName.value,
-        phone: phone.value,
-        address: address.value,
-        email: email.value
-      })
+      userId: '',
+      fullName: fullName.value,
+      phone: phone.value,
+      address: address.value,
+      email: email.value
+    })
       .then((orderId) => {
         console.log('orderId ', orderId);
+        setLoading(false);
         if (orderId) {
           toast.success("Added order successfully!");
           navigate("/order/" + orderId);
@@ -65,7 +69,9 @@ function Checkout(props: PropsWithChildren) {
   };
 
   return (
-    <>
+    <LoadingOverlay
+      loading={loading}
+    >
       <div className="bg-light py-5">
         <div className="container d-flex justify-content-between">
           <h1 className="fw-bolder text-black my-4 fst-italic">CHECKOUT</h1>
@@ -172,8 +178,6 @@ function Checkout(props: PropsWithChildren) {
           </div>
         </div>
       </section>
-    </>
+    </LoadingOverlay>
   );
 }
-
-export default Checkout;

@@ -1,13 +1,14 @@
-import { PropsWithChildren, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { initialOrder } from '../../utils/constant/models/orders';
-import { getFileUrl } from '../../utils/helpers/file';
-import { getOrder } from '../../service/orders.service';
-import { getVNDTotalAmount, getVNDUnit } from '../../utils/helpers/order';
 import ImageLoader from 'components/image-loader/ImageLoader';
 import { OrderModel } from 'models/Order.model';
+import { PropsWithChildren, useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { getOrder } from '../../service/orders.service';
+import { initialOrder } from '../../utils/constant/models/orders';
+import { getVNDTotalAmount, getVNDUnit } from '../../utils/helpers/order';
+import LoadingOverlay from 'layout/loading-overlay/LoadingOverlay';
 
 function DetailOrder(props: PropsWithChildren) {
+  const [loading, setLoading] = useState(true);
   const [order, setOrder] = useState<OrderModel>(initialOrder);
   const { orderId } = useParams();
 
@@ -16,12 +17,15 @@ function DetailOrder(props: PropsWithChildren) {
     getOrder(orderId).then((r) => {
       if (r) {
         setOrder(r);
+        setLoading(false);
       }
     });
   }, []);
 
   return (
-    <>
+    <LoadingOverlay
+      loading={loading}
+    >
       <div className="bg-light py-5">
         <div className="container d-flex justify-content-between">
           <h1 className="fw-bolder text-black my-4 fst-italic">Detail Order</h1>
@@ -110,7 +114,7 @@ function DetailOrder(props: PropsWithChildren) {
           </tbody>
         </table>
       </div>
-    </>
+    </LoadingOverlay>
   );
 }
 

@@ -2,32 +2,37 @@ import { PropsWithChildren, createContext, useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const StyleContext = createContext<{
+const LayoutContext = createContext<{
   layoutClassName: string;
-  setLayoutClassName(layoutClassName: string): void;
+  isAdd: boolean;
+  toggleLayoutClassName(layoutClassName: string, isAdd?: boolean): void;
 }>({
   layoutClassName: '',
-  setLayoutClassName() { }
+  isAdd: false,
+  toggleLayoutClassName() { }
 });
 
 export function StyleContextProvider(props: PropsWithChildren) {
   const [layoutClassName, setLayoutClassName] = useState('');
+  const [isAdd, setIsAdd] = useState(false);
 
-  useEffect(() => {
-
-  }, []);
+  function toggleLayoutClassName(className: string, isAdd = false) {
+    setLayoutClassName(className);
+    setIsAdd(isAdd);
+  }
 
   return (
-    <StyleContext.Provider
+    <LayoutContext.Provider
       value={{
         layoutClassName,
-        setLayoutClassName
+        isAdd,
+        toggleLayoutClassName
       }}
     >
       {props.children}
       <ToastContainer />
-    </StyleContext.Provider>
+    </LayoutContext.Provider>
   );
 }
 
-export default StyleContext;
+export default LayoutContext;

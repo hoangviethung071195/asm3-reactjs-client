@@ -1,6 +1,6 @@
 import { PropsWithChildren, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AuthContext from 'store/context/auth-context';
+import AuthContext from 'store/context/AuthContext';
 import s from './side-bar.module.scss';
 import { createPortal } from 'react-dom';
 
@@ -25,8 +25,11 @@ function SideBar(props: PropsWithChildren<{
 
   return createPortal(
     <div className={s['side-bar'] + " d-lg-none"}>
-      <div className={s['overlay']} onClick={closeSidebarHandler}>
-      </div>
+      {
+        isShow &&
+        <div className={s['overlay']} onClick={closeSidebarHandler}>
+        </div>
+      }
       <ul className={`${s['list-menu']} animate__animated animate__slideInRight ${!isShow ? 'animate__slideOutRight' : ''}`}>
         <li className={s['close-btn']}>
           <b className='ms-4'>

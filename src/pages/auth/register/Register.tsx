@@ -2,7 +2,7 @@ import { ChangeEvent, useContext, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { PropsWithChildren } from 'react';
-import AuthContext from 'store/context/auth-context';
+import AuthContext from 'store/context/AuthContext';
 import AuthLayout from 'layout/auth/Auth';
 import LoadingOverlay from 'layout/loading-overlay/LoadingOverlay';
 

@@ -5,7 +5,7 @@ import { scrollToBotomEl } from 'utils/helpers/browser';
 import { getMsgTime } from 'utils/helpers/date';
 import { getRelativeImageSrc } from 'utils/helpers/file';
 import { getChatRoomByUser, removeChatRoom, sendMessage } from '../../../service/chatRoom.service';
-import AuthContext from "../../../store/context/auth-context";
+import AuthContext from "../../../store/context/AuthContext";
 import { API_ENDPOINT } from '../../../utils/constant/env';
 import { initialRoom } from '../../../utils/constant/models/room';
 import s from './customerSupport.module.scss';

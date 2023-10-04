@@ -2,7 +2,7 @@ import ImageLoader from 'components/image-loader/ImageLoader';
 import { PropsWithChildren, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import AuthContext from "../../store/context/auth-context";
+import AuthContext from "../../store/context/AuthContext";
 import { getVNDUnit } from '../../utils/helpers/order';
 import s from './cart.module.scss';
 

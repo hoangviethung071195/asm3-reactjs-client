@@ -2,15 +2,15 @@ import Menu from 'components/menu/Menu';
 import SideBar from 'layout/side-bar/SideBar';
 import { PropsWithChildren, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AuthContext from 'store/context/auth-context';
-import StyleContext from 'store/context/style-context';
+import AuthContext from 'store/context/AuthContext';
+import LayoutContext from 'store/context/LayoutContext';
 
 export default function Header(props: PropsWithChildren) {
   const navigate = useNavigate();
   const ctx = useContext(AuthContext);
   const { isAuthenticated } = ctx;
   const [isShowSidebar, setIsShowSidebar] = useState(false);
-  const { setLayoutClassName } = useContext(StyleContext);
+  const { toggleLayoutClassName } = useContext(LayoutContext);
 
   function navigateTo(path: string = '') {
     return () => {
@@ -26,9 +26,9 @@ export default function Header(props: PropsWithChildren) {
 
   function displaySidebarHandler(isShow: boolean) {
     if (isShow) {
-      setLayoutClassName('filter-blur');
+      toggleLayoutClassName('filter-blur', true);
     } else {
-      setLayoutClassName('');
+      toggleLayoutClassName('filter-blur');
     }
     setIsShowSidebar(isShow);
   }

@@ -1,9 +1,9 @@
 import { loadGlobalSettings } from '../../service/global.service';
-import { AuthContextProvider } from '../../store/context/auth-context';
+import { AuthContextProvider } from '../../store/context/AuthContext';
 import Layout from '../../layout/Layout';
 import ProductInfo from '../modal/product-info/ProductInfo';
 import CustomerSupport from 'components/modal/customer-support/customerSupport';
-import { StyleContextProvider } from 'store/context/style-context';
+import { StyleContextProvider } from 'store/context/LayoutContext';
 import { useLocation } from 'react-router-dom';
 
 export default function Root() {

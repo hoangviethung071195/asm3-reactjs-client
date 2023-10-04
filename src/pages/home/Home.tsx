@@ -1,3 +1,4 @@
+import s from './home.module.scss';
 import { ProductModel } from 'models/Product.model';
 import queryString from 'query-string';
 import { PropsWithChildren, useEffect, useState } from "react";
@@ -87,19 +88,8 @@ function Home(props: PropsWithChildren) {
         <div className="carousel-inner banner">
           <div className="carousel-item active">
             <div className="container">
-              <div className="row p-5">
+              <div className={"row p-5 " + s["banner__inner"]}>
                 <div className="mx-auto col-md-8 col-lg-6 order-lg-last"></div>
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
                 <div className="col-lg-6 mb-0 d-flex align-items-center">
                   <div className="text-align-left align-self-center">
                     <p className="text-2 text-uppercase">New inspiration</p>

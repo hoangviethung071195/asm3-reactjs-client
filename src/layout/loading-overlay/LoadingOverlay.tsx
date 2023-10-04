@@ -1,26 +1,22 @@
-import { Component, PropsWithChildren } from "react";
-import Overlay, { LoadingOverlayProps } from 'react-loading-overlay';
+import { PropsWithChildren } from "react";
+import { createPortal } from 'react-dom';
 import { BounceLoader } from 'react-spinners';
+import s from './loading-overlay.module.scss';
 
-export default function LoadingOverlay(props: PropsWithChildren<LoadingOverlayProps & { loading: boolean; }>) {
+export default function LoadingOverlay(props: PropsWithChildren<{
+  loading: boolean;
+}>) {
   const { children, loading } = props;
 
-  const LoadingOverlayCustom = Overlay as typeof Component<PropsWithChildren<LoadingOverlayProps>>;
-
   return (
-    // <LoadingOverlayCustom
-    //   active={loading}
-    //   text={
-    //     <div className={s['loading-img']}></div>
-    //   }
-    // >
-    //   {!loading && children}
-    // </LoadingOverlayCustom>
-    <LoadingOverlayCustom
-      active={loading}
-      spinner={<BounceLoader />}
-    >
+    <>
       {children}
-    </LoadingOverlayCustom>
+      {createPortal(
+        <div className={`${s['loadding-overlay-wrapper']}  ${!loading ? s['loaded'] : ''}`}>
+          <BounceLoader className={s['bouce-loader-icon']} />
+        </div>,
+        document.getElementById('portal')!
+      )}
+    </>
   );
 }

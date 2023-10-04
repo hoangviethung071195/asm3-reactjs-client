@@ -1,5 +1,5 @@
 html {
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 body {
@@ -9,12 +9,15 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: all 0.5s;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .main-layout {
   filter: blur(0);
   transition: all 0.2s;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100vh;
 }
 
 .filter-blur {
@@ -151,6 +154,7 @@ img {
   background-image: url('assets/images/banner1.jpg');
   background-size: cover;
   background-position-x: 44%;
+  background-position-y: 50%;
 }
 
 .reset-anchor {

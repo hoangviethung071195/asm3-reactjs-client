@@ -1,22 +1,27 @@
 import { PropsWithChildren, useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import AuthContext from "../../store/context/auth-context";
+import AuthContext from "../../store/context/AuthContext";
 import { getOrdersByUser } from '../../service/orders.service';
 import { getVNDTotalAmount } from '../../utils/helpers/order';
 import { OrderModel } from 'models/Order.model';
+import LoadingOverlay from 'layout/loading-overlay/LoadingOverlay';
 
 function Orders(props: PropsWithChildren) {
+  const [loading, setLoading] = useState(true);
   const [orders, setOrders] = useState<OrderModel[]>([]);
   const ctx = useContext(AuthContext);
 
   useEffect(() => {
     getOrdersByUser(ctx.currentUser!._id!).then((r) => {
       setOrders(r);
+      setLoading(false);
     });
   }, []);
 
   return (
-    <>
+    <LoadingOverlay
+      loading={loading}
+    >
       <div className="bg-light py-5">
         <div className="container d-flex justify-content-between">
           <h1 className="fw-bolder text-black my-4 fst-italic">History</h1>
@@ -104,7 +109,7 @@ function Orders(props: PropsWithChildren) {
           </tbody>
         </table>
       </div>
-    </>
+    </LoadingOverlay>
   );
 }
 

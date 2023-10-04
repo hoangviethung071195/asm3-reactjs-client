@@ -1,6 +1,6 @@
 import { useContext, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "../../../store/context/auth-context";
+import AuthContext from "../../../store/context/AuthContext";
 import { toast } from "react-toastify";
 import { PropsWithChildren } from 'react';
 import AuthLayout from 'layout/auth/Auth';
@@ -58,6 +58,7 @@ function Login(props: PropsWithChildren) {
               onKeyDown={(event) =>
                 event.key === "Enter" ? validateUserInput() : null
               }
+              defaultValue={'customer@gmail.com'}
             />
           </div>
 
@@ -71,6 +72,7 @@ function Login(props: PropsWithChildren) {
               onKeyDown={(event) =>
                 event.key === "Enter" ? validateUserInput() : null
               }
+              defaultValue={'hungnho123'}
             />
           </div>
 
