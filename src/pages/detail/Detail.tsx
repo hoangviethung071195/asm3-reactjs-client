@@ -11,12 +11,12 @@ import LoadingOverlay from 'layout/loading-overlay/LoadingOverlay';
 
 function Detail(props: PropsWithChildren) {
   const [loading, setLoading] = useState(true);
+  const ctx = useContext(AuthContext);
   const navigate = useNavigate();
   const [products, setProducts] = useState<ProductModel[]>([]);
   const [product, setProduct] = useState<ProductModel>(initialProduct);
   const [quantity, setQuantity] = useState<number>(1);
   const { id } = useParams();
-  const quantityInputEl = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (!id) return;
@@ -33,11 +33,8 @@ function Detail(props: PropsWithChildren) {
       });
   }, [id]);
 
-  const ctx = useContext(AuthContext);
   function addToCart() {
-    if (!quantityInputEl.current?.value) return;
     setLoading(true);
-    const quantity = +quantityInputEl.current?.value;
     ctx.onAddToCart(quantity, product._id!)
       .then(r => {
         if (r) {
@@ -48,12 +45,10 @@ function Detail(props: PropsWithChildren) {
   }
 
   function creaseQuantity() {
-    const quantity = Number(quantityInputEl.current?.value);
     setQuantity(quantity + 1);
   }
 
   function increaseQuantity() {
-    const quantity = Number(quantityInputEl.current?.value);
     if (quantity > 1) {
       setQuantity(quantity - 1);
     }
@@ -147,6 +142,7 @@ function Detail(props: PropsWithChildren) {
                     <p className="bg-white w-100 py-2 ps-4 text-2">QUANTITY </p>
                     <div className="input-group mb-2 w-50 d-flex input-btn">
                       <button
+                        disabled={quantity <= 1}
                         className="btn px-2 border-0 shadow-none"
                         onClick={increaseQuantity}
                       >
@@ -155,11 +151,11 @@ function Detail(props: PropsWithChildren) {
                       <div className="input-number">
                         <input
                           disabled
-                          ref={quantityInputEl}
                           type="text"
                           className="form-control rounded-0 px-0 text-center border-0 outline-0 shadow-none"
                           id="quantity"
                           value={quantity}
+                          onChange={(e) => setQuantity(+e.target.value)}
                         />
                       </div>
                       <button

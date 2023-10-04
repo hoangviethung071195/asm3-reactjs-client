@@ -7,14 +7,35 @@ import { getVNDUnit } from '../../utils/helpers/order';
 import s from './cart.module.scss';
 import { CartModel } from 'models/Cart.model';
 import LoadingOverlay from 'layout/loading-overlay/LoadingOverlay';
+import { useUpdateEffect } from 'usehooks-ts';
+import { cloneDeep } from 'lodash';
 
 function Cart(props: PropsWithChildren) {
   const [loading, setLoading] = useState(false);
-  const ctx = useContext(AuthContext);
+  const { carts: originCarts, onAddToCart, onRemoveCart } = useContext(AuthContext);
+  const [carts, setCarts] = useState(cloneDeep(originCarts));
   const navigate = useNavigate();
-  // chuyển đến trang giỏ hàng
+
+  useUpdateEffect(() => {
+    setCarts(originCarts);
+  }, [originCarts]);
+
   function clickCheckoutLinkHandler() {
-    navigate("/checkout");
+    setLoading(true);
+    const promises = carts.map(c => {
+      const origincart = originCarts.find(oc => oc.product._id === c.product._id);
+      if (origincart?.product._id)
+        return onAddToCart(c.quantity - origincart.quantity, origincart.product._id);
+    });
+
+    Promise.all(promises)
+      .then(r => {
+        if (r) {
+          navigate("/checkout");
+        }
+        setLoading(false);
+      });
+
   }
 
   // chuyển đến trang cửa hàng
@@ -28,30 +49,20 @@ function Cart(props: PropsWithChildren) {
     navigate("/detail/" + id);
   }
 
-  function decreaseQuantity(item: CartModel) {
-    if (item.quantity === 1 || !item.product._id) return;
-    setLoading(true);
-    ctx
-      .onAddToCart(-1, item.product._id)
-      .then((r) => {
-        setLoading(false);
-      });
-  }
-
-  function increaseQuantity(item: CartModel) {
-    if (!item.product._id) return;
-    setLoading(true);
-    ctx
-      .onAddToCart(1, item.product._id)
-      .then(() => {
-        setLoading(false);
-      });
+  function changeQuantityHandler(item: CartModel, diffirence: number) {
+    setCarts(prevCarts => {
+      const newCarts = cloneDeep(prevCarts);
+      const newItem = newCarts.find(c => c.product._id === item.product._id);
+      if (newItem)
+        newItem.quantity += diffirence;
+      return newCarts;
+    });
   }
 
   function removeCart(item: CartModel) {
     if (!item.product._id) return;
     setLoading(true);
-    ctx.onRemoveCart(item.product._id).then((r) => {
+    onRemoveCart(item.product._id).then((r) => {
       if (r) toast.success("Removed product successfully.");
       setLoading(false);
     });
@@ -68,7 +79,7 @@ function Cart(props: PropsWithChildren) {
         </div>
       </div>
 
-      <section className="container py-5 h-100 fst-italic">
+      <section className="container py-5 fst-italic">
         <h5 className="fw-bolder text-black mb-4">Shopping Cart</h5>
         <div className="row g-0">
           <div className="text-center col-lg-8 col-12 pe-lg-5 pe-0">
@@ -99,8 +110,8 @@ function Cart(props: PropsWithChildren) {
                 </thead>
                 <tbody>
                   {
-                    ctx?.carts?.map((item) => (
-                      <tr className="text-center" key={item._id}>
+                    carts?.map((item) => (
+                      <tr className="text-center" key={item.product._id}>
                         <td className='ps-0'>
                           <ImageLoader fileId={item.product.fileIds?.[0]} fileIds={item.product.fileIds} />
                         </td>
@@ -117,27 +128,31 @@ function Cart(props: PropsWithChildren) {
                           </p>
                         </td>
                         <td className='pt-0' style={{ minWidth: '110px' }}>
-                          <div className="col-2 d-flex input-group d-flex input-btn position-relative justify-content-center end-0"                          >
+                          <div className="col-2 d-flex input-group d-flex input-btn position-relative justify-content-center end-0">
                             <button
+                              disabled={item.quantity <= 1}
                               className="btn px-2 border-0 shadow-none"
-                              onClick={() => decreaseQuantity(item)}
+                              onClick={() => changeQuantityHandler(item, -1)}
                             >
                               <i className="fas fa-caret-left text-hover"></i>
                             </button>
                             <div className={s["input-number"] + " input-number"}>
                               <input
-                                disabled
                                 type="text"
                                 className="form-control rounded-0 px-0 text-center border-0 outline-0 shadow-none"
                                 value={item.quantity}
                                 onChange={(event) => {
-                                  event.preventDefault();
+                                  const quantity = +event.target.value;
+                                  if (!quantity) {
+                                    return;
+                                  }
+                                  changeQuantityHandler(item, quantity - item.quantity);
                                 }}
                               />
                             </div>
                             <button
                               className="btn px-2 plus border-0 shadow-none"
-                              onClick={() => increaseQuantity(item)}
+                              onClick={() => changeQuantityHandler(item, 1)}
                             >
                               <i className="fas fa-caret-right text-hover"></i>
                             </button>
@@ -195,7 +210,7 @@ function Cart(props: PropsWithChildren) {
               <div className="d-flex justify-content-between mb-0 text-muted">
                 <h6 className="text-uppercase mb-0">SubTotal</h6>
                 <p className="text-1 text-muted mb-0">
-                  {getVNDUnit(ctx?.carts?.reduce((a, b) => a + +b.product.price * b.quantity, 0) || 0)}
+                  {getVNDUnit(carts?.reduce((a, b) => a + +b.product.price * b.quantity, 0) || 0)}
                 </p>
               </div>
 
@@ -204,7 +219,7 @@ function Cart(props: PropsWithChildren) {
               <div className="d-flex justify-content-between mb-5 text-muted">
                 <h6 className="text-uppercase">Total</h6>
                 <p className="text-h2">
-                  {getVNDUnit(ctx?.carts?.reduce((a, b) => a + +b.product.price * b.quantity, 0) || 0)}
+                  {getVNDUnit(carts?.reduce((a, b) => a + +b.product.price * b.quantity, 0) || 0)}
                 </p>
               </div>
 

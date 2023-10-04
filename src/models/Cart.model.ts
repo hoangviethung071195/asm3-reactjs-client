@@ -2,7 +2,6 @@ import { ProductModel } from './Product.model';
 import { UserModel } from './User.model';
 
 export interface CartModel {
-  _id?: string;
   product: ProductModel
   productId?: string;
   userId?: string;

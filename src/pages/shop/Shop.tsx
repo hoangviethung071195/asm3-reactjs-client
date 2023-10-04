@@ -12,6 +12,7 @@ import { initialPagingData } from '../../utils/constant/models/pagination';
 import { PagingData } from 'models/Pagination.model';
 import { ProductModel } from 'models/Product.model';
 import LoadingOverlay from 'layout/loading-overlay/LoadingOverlay';
+import { DEFAULT_PAGINATION } from 'utils/constant/Pagination';
 
 type productQueryParam = {
   page?: number;
@@ -26,7 +27,7 @@ function Shop(props: PropsWithChildren) {
   const [productsPaging, setProductsPaging] = useState<PagingData<ProductModel>>(initialPagingData);
   const [urlSearchParams, setURLSearchParams] = useSearchParams();
   const query: productQueryParam = {
-    page: +(urlSearchParams.get('page') || 1),
+    page: +(urlSearchParams.get('page') || DEFAULT_PAGINATION.page),
     keyword: urlSearchParams.get('keyword') || '',
     category: urlSearchParams.get('category') || '',
     sortBy: urlSearchParams.get('sortBy') || ''
@@ -37,6 +38,7 @@ function Shop(props: PropsWithChildren) {
       return {
         ...prevState,
         ...filter,
+        page: filter.page || DEFAULT_PAGINATION.page
       };
     }
     return prevState;
@@ -95,7 +97,7 @@ function Shop(props: PropsWithChildren) {
                 <ul className="collapse show list-unstyled pl-3">
                   <li>
                     <p
-                      className="text-decoration-none text-1 text-muted px-4 text-hover"
+                      className={(!category ? 'text-active ' : '') + "text-decoration-none text-1 text-muted px-4 text-hover"}
                       onClick={() => dispatchFilter({ category: '' })}
                     >
                       All
@@ -110,7 +112,7 @@ function Shop(props: PropsWithChildren) {
                 <ul className="collapse show list-unstyled pl-3">
                   <li>
                     <p
-                      className="text-decoration-none text-1 text-muted px-4 text-hover"
+                      className={(category === 'iphone' ? 'text-active ' : '') + "text-decoration-none text-1 text-muted px-4 text-hover"}
                       onClick={() => dispatchFilter({ category: "iphone" })}
                     >
                       Iphone
@@ -118,7 +120,7 @@ function Shop(props: PropsWithChildren) {
                   </li>
                   <li>
                     <p
-                      className="text-decoration-none text-1 text-muted px-4 text-hover"
+                      className={(category === 'ipad' ? 'text-active ' : '') + "text-decoration-none text-1 text-muted px-4 text-hover"}
                       onClick={() => dispatchFilter({ category: "ipad" })}
                     >
                       Ipad
@@ -126,7 +128,7 @@ function Shop(props: PropsWithChildren) {
                   </li>
                   <li>
                     <p
-                      className="text-decoration-none text-1 text-muted px-4 text-hover"
+                      className={(category === 'macbook' ? 'text-active ' : '') + "text-decoration-none text-1 text-muted px-4 text-hover"}
                       onClick={() => dispatchFilter({ category: "macbook" })}
                     >
                       Macbook
@@ -144,7 +146,7 @@ function Shop(props: PropsWithChildren) {
                 >
                   <li>
                     <p
-                      className="text-decoration-none text-1 text-muted px-4 text-hover"
+                      className={(category === 'airpod' ? 'text-active ' : '') + "text-decoration-none text-1 text-muted px-4 text-hover"}
                       onClick={() => dispatchFilter({ category: "airpod" })}
                     >
                       Airpod
@@ -152,7 +154,7 @@ function Shop(props: PropsWithChildren) {
                   </li>
                   <li>
                     <p
-                      className="text-decoration-none text-1 text-muted px-4 text-hover"
+                      className={(category === 'watch' ? 'text-active ' : '') + "text-decoration-none text-1 text-muted px-4 text-hover"}
                       onClick={() => dispatchFilter({ category: "watch" })}
                     >
                       Watch
@@ -171,7 +173,7 @@ function Shop(props: PropsWithChildren) {
                 >
                   <li>
                     <p
-                      className="text-decoration-none text-1 text-muted px-4 text-hover"
+                      className={(category === 'mouse' ? 'text-active ' : '') + "text-decoration-none text-1 text-muted px-4 text-hover"}
                       onClick={() => dispatchFilter({ category: "mouse" })}
                     >
                       Mouse
@@ -179,7 +181,7 @@ function Shop(props: PropsWithChildren) {
                   </li>
                   <li>
                     <p
-                      className="text-decoration-none text-1 text-muted px-4 text-hover"
+                      className={(category === 'keyboard' ? 'text-active ' : '') + "text-decoration-none text-1 text-muted px-4 text-hover"}
                       onClick={() => dispatchFilter({ category: "keyboard" })}
                     >
                       Keyboard
@@ -187,7 +189,7 @@ function Shop(props: PropsWithChildren) {
                   </li>
                   <li>
                     <p
-                      className="text-decoration-none text-1 text-muted px-4 text-hover"
+                      className={(category === 'other' ? 'text-active ' : '') + "text-decoration-none text-1 text-muted px-4 text-hover"}
                       onClick={() => dispatchFilter({ category: "other" })}
                     >
                       Other
