@@ -17,7 +17,7 @@ const AuthContext = createContext<{
   onLogout: VoidFunction;
   onLogin: (user: UserModel) => Promise<UserModel>;
   onRegister: (user: UserModel) => Promise<UserModel>;
-  onAddToCart: (quantity: number, productId: string) => Promise<boolean>;
+  onAddToCart: (carts: CartModel[]) => Promise<boolean>;
   onRemoveCart: (productId: string) => Promise<boolean>;
   onAddOrder: (order: OrderInfoModel) => Promise<string>;
 }>({
@@ -27,7 +27,7 @@ const AuthContext = createContext<{
   onLogout() { },
   onLogin: async (user: UserModel) => { return {}; },
   onRegister: async (user: UserModel) => { return {}; },
-  onAddToCart: async (quantity: number, productId: string) => { return false; },
+  onAddToCart: async (carts: CartModel[]) => { return false; },
   onRemoveCart: async (productId: string) => { return false; },
   onAddOrder: async (order: OrderInfoModel) => { return ''; },
 });
@@ -45,6 +45,7 @@ export function AuthContextProvider(props: PropsWithChildren) {
   function loadCarts() {
     getCartByUser(currentUser._id!)
       .then(r => {
+        console.log('r ', r);
         setCarts(r);
       });
   }
@@ -89,8 +90,8 @@ export function AuthContextProvider(props: PropsWithChildren) {
     });
   };
 
-  const addToCart = async (quantity: number, productId: string) => {
-    return updateCartByUser(currentUser._id!, quantity, productId)
+  const addToCart = async (carts: CartModel[]) => {
+    return updateCartByUser(currentUser._id || '', { items: carts })
       .then(r => {
         if (r) {
           loadCarts();

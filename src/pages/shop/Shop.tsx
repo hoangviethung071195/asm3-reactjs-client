@@ -1,6 +1,6 @@
 import Pagination from 'components/Pagination/Pagination';
-import SearchInput from 'components/form/search/search-input';
-import SelectInput from 'components/form/select/select-input';
+import SearchInput from 'components/form/search-input/search-input';
+import SelectInput from 'components/form/select-input/select-input';
 import { PropsWithChildren, useEffect, useReducer, useState } from "react";
 import { useSearchParams } from 'react-router-dom';
 import { useDebounce, useUpdateEffect } from 'usehooks-ts';

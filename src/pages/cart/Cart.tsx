@@ -9,6 +9,7 @@ import { CartModel } from 'models/Cart.model';
 import LoadingOverlay from 'layout/loading-overlay/LoadingOverlay';
 import { useUpdateEffect } from 'usehooks-ts';
 import { cloneDeep } from 'lodash';
+import NumberInput from 'components/form/number-input/number-input';
 
 function Cart(props: PropsWithChildren) {
   const [loading, setLoading] = useState(false);
@@ -20,15 +21,10 @@ function Cart(props: PropsWithChildren) {
     setCarts(originCarts);
   }, [originCarts]);
 
-  function clickCheckoutLinkHandler() {
+  function checkoutHandler() {
     setLoading(true);
-    const promises = carts.map(c => {
-      const origincart = originCarts.find(oc => oc.product._id === c.product._id);
-      if (origincart?.product._id)
-        return onAddToCart(c.quantity - origincart.quantity, origincart.product._id);
-    });
-
-    Promise.all(promises)
+    carts.forEach(c => c.productId = c.product._id);
+    onAddToCart(carts)
       .then(r => {
         if (r) {
           navigate("/checkout");
@@ -137,18 +133,7 @@ function Cart(props: PropsWithChildren) {
                               <i className="fas fa-caret-left text-hover"></i>
                             </button>
                             <div className={s["input-number"] + " input-number"}>
-                              <input
-                                type="text"
-                                className="form-control rounded-0 px-0 text-center border-0 outline-0 shadow-none"
-                                value={item.quantity}
-                                onChange={(event) => {
-                                  const quantity = +event.target.value;
-                                  if (!quantity) {
-                                    return;
-                                  }
-                                  changeQuantityHandler(item, quantity - item.quantity);
-                                }}
-                              />
+                              <NumberInput onChange={(quantity) => changeQuantityHandler(item, quantity - item.quantity)} value={item.quantity} />
                             </div>
                             <button
                               className="btn px-2 plus border-0 shadow-none"
@@ -190,7 +175,7 @@ function Cart(props: PropsWithChildren) {
                 <div className='col-12 col-sm-6'>
                   <button
                     className="btn btn-light border-dark fst-italic"
-                    onClick={clickCheckoutLinkHandler}
+                    onClick={checkoutHandler}
                   >
                     <span className="text-muted">Proceed to checkout</span>
                     <i className="fas fa-long-arrow-alt-right ms-2"></i>

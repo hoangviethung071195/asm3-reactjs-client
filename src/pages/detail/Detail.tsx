@@ -8,10 +8,13 @@ import AuthContext from "../../store/context/AuthContext";
 import { initialProduct } from '../../utils/constant/models/products';
 import { getVNDUnit } from '../../utils/helpers/order';
 import LoadingOverlay from 'layout/loading-overlay/LoadingOverlay';
+import NumberInput from 'components/form/number-input/number-input';
+import { cloneDeep } from 'lodash';
 
 function Detail(props: PropsWithChildren) {
   const [loading, setLoading] = useState(true);
-  const ctx = useContext(AuthContext);
+  const { onAddToCart, carts: originCarts } = useContext(AuthContext);
+  const carts = cloneDeep(originCarts);
   const navigate = useNavigate();
   const [products, setProducts] = useState<ProductModel[]>([]);
   const [product, setProduct] = useState<ProductModel>(initialProduct);
@@ -35,7 +38,24 @@ function Detail(props: PropsWithChildren) {
 
   function addToCart() {
     setLoading(true);
-    ctx.onAddToCart(quantity, product._id!)
+    const productId = product._id;
+    const cart = carts.find(c => c.product._id === productId);
+    if (cart) {
+      cart.quantity = quantity;
+      cart.productId = productId;
+    } else {
+      carts.push({
+        quantity,
+        productId,
+        product: initialProduct
+      });
+    }
+    carts.forEach(c => {
+      if (!c.productId) {
+        c.productId = c.product._id;
+      }
+    });
+    onAddToCart(carts)
       .then(r => {
         if (r) {
           navigate('/cart');
@@ -149,14 +169,7 @@ function Detail(props: PropsWithChildren) {
                         <i className="fas fa-caret-left text-hover"></i>
                       </button>
                       <div className="input-number">
-                        <input
-                          disabled
-                          type="text"
-                          className="form-control rounded-0 px-0 text-center border-0 outline-0 shadow-none"
-                          id="quantity"
-                          value={quantity}
-                          onChange={(e) => setQuantity(+e.target.value)}
-                        />
+                        <NumberInput onChange={(quantity) => setQuantity(quantity)} value={quantity} />
                       </div>
                       <button
                         className="btn px-2 plus border-0 shadow-none"

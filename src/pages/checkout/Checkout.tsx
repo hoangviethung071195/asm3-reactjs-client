@@ -81,7 +81,7 @@ export default function Checkout(props: PropsWithChildren) {
         </div>
       </div>
 
-      <section className="container py-5 h-100 fst-italic">
+      <section className="container py-5 fst-italic">
         <h5 className="fw-bolder text-black mb-4">BILLING DETAILS</h5>
         <div className="row g-0">
           <form className="p-5 ps-0 pt-0 col-8" ref={formEl}>

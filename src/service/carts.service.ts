@@ -7,8 +7,8 @@ export async function getCartByUser(userId: string) {
   return requestJson<CartModel[]>(CART_PATH + '/getCartByUser', RequestMethod.Post, { userId });
 }
 
-export async function updateCartByUser(userId: string, quantity: number, productId: string) {
-  return requestJson<boolean>(CART_PATH, RequestMethod.Post, { userId, quantity, productId });
+export async function updateCartByUser(userId: string, cart: { items: CartModel[]; }) {
+  return requestJson<boolean>(CART_PATH, RequestMethod.Post, { userId, cart });
 }
 
 export async function deleteProductsInCartByUser(userId: string, productId: string) {
