@@ -41,7 +41,7 @@ function Detail(props: PropsWithChildren) {
     const productId = product._id;
     const cart = carts.find(c => c.product._id === productId);
     if (cart) {
-      cart.quantity = quantity;
+      cart.quantity += quantity;
       cart.productId = productId;
     } else {
       carts.push({
