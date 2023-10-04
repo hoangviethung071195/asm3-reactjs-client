@@ -17,8 +17,8 @@ function DetailOrder(props: PropsWithChildren) {
     getOrder(orderId).then((r) => {
       if (r) {
         setOrder(r);
-        setLoading(false);
       }
+      setLoading(false);
     });
   }, []);
 

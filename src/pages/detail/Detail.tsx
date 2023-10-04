@@ -1,25 +1,26 @@
+import ImageLoader from 'components/image-loader/ImageLoader';
+import { ProductModel } from 'models/Product.model';
 import { PropsWithChildren, useContext, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import List from "../../components/product/list/List";
 import { getProduct, getProducts } from "../../service/products.service";
 import AuthContext from "../../store/context/AuthContext";
 import { initialProduct } from '../../utils/constant/models/products';
-import { getFileUrl } from '../../utils/helpers/file';
 import { getVNDUnit } from '../../utils/helpers/order';
-import { Fancybox } from '@fancyapps/ui';
-import ImageLoader from 'components/image-loader/ImageLoader';
-import { ProductModel } from 'models/Product.model';
+import LoadingOverlay from 'layout/loading-overlay/LoadingOverlay';
 
 function Detail(props: PropsWithChildren) {
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const [products, setProducts] = useState<ProductModel[]>([]);
   const [product, setProduct] = useState<ProductModel>(initialProduct);
-  const [quantity, setQuantity] = useState<number>(0);
+  const [quantity, setQuantity] = useState<number>(1);
   const { id } = useParams();
   const quantityInputEl = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (!id) return;
+    setLoading(true);
     getProduct(id)
       .then(r => {
         setProduct(r);
@@ -28,18 +29,21 @@ function Detail(props: PropsWithChildren) {
       .then(async category => {
         const r = await getProducts(1, 4, undefined, category);
         setProducts(r.list);
+        setLoading(false);
       });
   }, [id]);
 
   const ctx = useContext(AuthContext);
   function addToCart() {
     if (!quantityInputEl.current?.value) return;
+    setLoading(true);
     const quantity = +quantityInputEl.current?.value;
     ctx.onAddToCart(quantity, product._id!)
       .then(r => {
         if (r) {
           navigate('/cart');
         }
+        setLoading(false);
       });
   }
 
@@ -55,9 +59,10 @@ function Detail(props: PropsWithChildren) {
     }
   }
 
-
   return (
-    <>
+    <LoadingOverlay
+      loading={loading}
+    >
       <div className="bg-light py-5">
         <div className="container d-flex justify-content-between text-uppercase">
           <h1 className="fw-bolder text-black my-4 fst-italic">
@@ -198,7 +203,7 @@ function Detail(props: PropsWithChildren) {
       )
       }
       {/* <!-- Close Content --> */}
-    </>
+    </LoadingOverlay>
   );
 }
 

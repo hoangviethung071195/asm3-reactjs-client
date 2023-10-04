@@ -60,6 +60,7 @@ function Shop(props: PropsWithChildren) {
   }, [page, deboucedKeyword, category, sortBy]);
 
   function searchProducts(query: productQueryParam) {
+    setLoading(true);
     const sort = 'asc';
     setURLSearchParams(getValuableFieldsObj(query));
     const { page, keyword, category, sortBy } = query;

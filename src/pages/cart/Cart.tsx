@@ -5,9 +5,12 @@ import { toast } from "react-toastify";
 import AuthContext from "../../store/context/AuthContext";
 import { getVNDUnit } from '../../utils/helpers/order';
 import s from './cart.module.scss';
+import { CartModel } from 'models/Cart.model';
+import LoadingOverlay from 'layout/loading-overlay/LoadingOverlay';
 
 function Cart(props: PropsWithChildren) {
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const ctx = useContext(AuthContext);
   const navigate = useNavigate();
   // chuyển đến trang giỏ hàng
   function clickCheckoutLinkHandler() {
@@ -25,10 +28,39 @@ function Cart(props: PropsWithChildren) {
     navigate("/detail/" + id);
   }
 
-  const ctx = useContext(AuthContext);
+  function decreaseQuantity(item: CartModel) {
+    if (item.quantity === 1 || !item.product._id) return;
+    setLoading(true);
+    ctx
+      .onAddToCart(-1, item.product._id)
+      .then((r) => {
+        setLoading(false);
+      });
+  }
+
+  function increaseQuantity(item: CartModel) {
+    if (!item.product._id) return;
+    setLoading(true);
+    ctx
+      .onAddToCart(1, item.product._id)
+      .then(() => {
+        setLoading(false);
+      });
+  }
+
+  function removeCart(item: CartModel) {
+    if (!item.product._id) return;
+    setLoading(true);
+    ctx.onRemoveCart(item.product._id).then((r) => {
+      if (r) toast.success("Removed product successfully.");
+      setLoading(false);
+    });
+  }
 
   return (
-    <>
+    <LoadingOverlay
+      loading={loading}
+    >
       <div className="bg-light py-5">
         <div className="container d-flex justify-content-between">
           <h1 className="fw-bolder text-black my-4 fst-italic">CART</h1>
@@ -70,7 +102,7 @@ function Cart(props: PropsWithChildren) {
                     ctx?.carts?.map((item) => (
                       <tr className="text-center" key={item._id}>
                         <td className='ps-0'>
-                          <ImageLoader fileId={item.product.fileIds?.[0]} fileIds={item.product.fileIds}/>
+                          <ImageLoader fileId={item.product.fileIds?.[0]} fileIds={item.product.fileIds} />
                         </td>
                         <td style={{ minWidth: '120px' }}>
                           <div onClick={() => clickDetailLinkHandler(item.product._id)}>
@@ -87,19 +119,8 @@ function Cart(props: PropsWithChildren) {
                         <td className='pt-0' style={{ minWidth: '110px' }}>
                           <div className="col-2 d-flex input-group d-flex input-btn position-relative justify-content-center end-0"                          >
                             <button
-                              disabled={isLoading}
                               className="btn px-2 border-0 shadow-none"
-                              onClick={() => {
-                                if (item.quantity === 1 || !item.product._id) return;
-                                setIsLoading(true);
-                                ctx
-                                  .onAddToCart(-1, item.product._id)
-                                  .then((r) => {
-                                    if (r) {
-                                      setIsLoading(false);
-                                    }
-                                  });
-                              }}
+                              onClick={() => decreaseQuantity(item)}
                             >
                               <i className="fas fa-caret-left text-hover"></i>
                             </button>
@@ -115,21 +136,8 @@ function Cart(props: PropsWithChildren) {
                               />
                             </div>
                             <button
-                              disabled={isLoading}
                               className="btn px-2 plus border-0 shadow-none"
-                              onClick={() => {
-                                if (!item.product._id) return;
-                                setIsLoading(true);
-                                console.log("isLoading ", isLoading);
-                                ctx
-                                  .onAddToCart(1, item.product._id)
-                                  .then((r) => {
-                                    if (r) {
-                                      setIsLoading(false);
-                                      console.log("isLoading ", isLoading);
-                                    }
-                                  });
-                              }}
+                              onClick={() => increaseQuantity(item)}
                             >
                               <i className="fas fa-caret-right text-hover"></i>
                             </button>
@@ -143,12 +151,7 @@ function Cart(props: PropsWithChildren) {
                         <td>
                           <i
                             className="fas fa-trash text-hover text-muted"
-                            onClick={() => {
-                              if (!item.product._id) return;
-                              ctx.onRemoveCart(item.product._id).then((r) => {
-                                if (r) toast.success("Removed product successfully.");
-                              });
-                            }}
+                            onClick={() => removeCart(item)}
                           ></i>
                         </td>
                       </tr>
@@ -221,7 +224,7 @@ function Cart(props: PropsWithChildren) {
           </div>
         </div>
       </section>
-    </>
+    </LoadingOverlay>
   );
 }
 

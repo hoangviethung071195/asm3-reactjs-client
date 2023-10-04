@@ -45,11 +45,11 @@ export default function Checkout(props: PropsWithChildren) {
     })
       .then((orderId) => {
         console.log('orderId ', orderId);
-        setLoading(false);
         if (orderId) {
           toast.success("Added order successfully!");
           navigate("/order/" + orderId);
         }
+        setLoading(false);
       });
   }
 
