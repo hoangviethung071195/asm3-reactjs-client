@@ -52,6 +52,9 @@ function Shop(props: PropsWithChildren) {
   }, []);
 
   useUpdateEffect(() => {
+    if (keyword !== deboucedKeyword) {
+      return;
+    }
     const query: productQueryParam = {
       page,
       keyword,
@@ -210,7 +213,7 @@ function Shop(props: PropsWithChildren) {
               <div className="col-md-4 pb-lg-4 pb-3"></div>
               <div className="col-md-4 pb-lg-4 pb-3">
                 <div className="d-flex">
-                  <SelectInput onChange={(sortBy => dispatchFilter({ sortBy }))} items={listProductFieldSorting} />
+                  <SelectInput onChange={(sortBy => dispatchFilter({ sortBy, page }))} items={listProductFieldSorting} value={sortBy || ''} />
                 </div>
               </div>
             </div>
