@@ -29,7 +29,7 @@ function Orders(props: PropsWithChildren) {
         </div>
       </div>
 
-      <div className="table-responsive pt-5 pb-5 fst-italic">
+      <div className="table-responsive pt-5 pb-5 fst-italic main-content">
         <table className="table">
           <thead className="bg-light">
             <tr className="text-center">

@@ -200,6 +200,10 @@ select.form-control {
   }
 }
 
+.main-content {
+  min-height: calc(100vh - 495px);
+}
+
 @import 'bootstrap/dist/css/bootstrap.css';
 @import '@fortawesome/fontawesome-free/css/all.min.css';
 @import '@fancyapps/ui/dist/fancybox/fancybox.css';

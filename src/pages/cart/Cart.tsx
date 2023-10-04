@@ -75,7 +75,7 @@ function Cart(props: PropsWithChildren) {
         </div>
       </div>
 
-      <section className="container py-5 fst-italic">
+      <section className="container py-5 fst-italic main-content">
         <h5 className="fw-bolder text-black mb-4">Shopping Cart</h5>
         <div className="row g-0">
           <div className="text-center col-lg-8 col-12 pe-lg-5 pe-0">
