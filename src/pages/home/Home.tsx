@@ -1,3 +1,4 @@
+import { ProductModel } from 'models/Product.model';
 import queryString from 'query-string';
 import { PropsWithChildren, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -6,14 +7,18 @@ import List from "../../components/product/list/List";
 import { getProducts } from "../../service/products.service";
 import { CATEGORIES } from '../../utils/constant/Category';
 import { scrollToTop } from '../../utils/helpers/browser';
-import { ProductModel } from 'models/Product.model';
+import LoadingOverlay from 'layout/loading-overlay/LoadingOverlay';
 
 function Home(props: PropsWithChildren) {
   const [products, setProducts] = useState<ProductModel[]>([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    getProducts().then(r => setProducts(r.list));
+    getProducts().then(r => {
+      setProducts(r.list);
+      setLoading(false);
+    });
   }, []);
 
   function navigateToShop(category: string) {
@@ -30,7 +35,9 @@ function Home(props: PropsWithChildren) {
     };
   }
   return (
-    <>
+    <LoadingOverlay
+      loading={loading}
+    >
       <div
         className="modal fade bg-white"
         id="templatemo_search"
@@ -193,7 +200,7 @@ function Home(props: PropsWithChildren) {
           </div>
         </div>
       </section>
-    </>
+    </LoadingOverlay>
   );
 }
 

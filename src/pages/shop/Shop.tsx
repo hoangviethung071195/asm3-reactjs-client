@@ -11,6 +11,7 @@ import { getProducts } from "../../service/products.service";
 import { initialPagingData } from '../../utils/constant/models/pagination';
 import { PagingData } from 'models/Pagination.model';
 import { ProductModel } from 'models/Product.model';
+import LoadingOverlay from 'layout/loading-overlay/LoadingOverlay';
 
 type productQueryParam = {
   page?: number;
@@ -21,6 +22,7 @@ type productQueryParam = {
 };
 
 function Shop(props: PropsWithChildren) {
+  const [loading, setLoading] = useState(true);
   const [productsPaging, setProductsPaging] = useState<PagingData<ProductModel>>(initialPagingData);
   const [urlSearchParams, setURLSearchParams] = useSearchParams();
   const query: productQueryParam = {
@@ -64,11 +66,14 @@ function Shop(props: PropsWithChildren) {
     getProducts(page, limit, keyword, category, sort, sortBy)
       .then(r => {
         setProductsPaging(r);
+        setLoading(false);
       });
   }
 
   return (
-    <>
+    <LoadingOverlay
+      loading={loading}
+    >
       <div className="bg-light py-5">
         <div className="container d-flex justify-content-between">
           <h1 className="fw-bolder text-black my-4 fst-italic">SHOP</h1>
@@ -216,7 +221,7 @@ function Shop(props: PropsWithChildren) {
           </div>
         </div>
       </div>
-    </>
+    </LoadingOverlay>
   );
 }
 

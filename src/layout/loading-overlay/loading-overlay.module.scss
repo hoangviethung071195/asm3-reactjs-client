@@ -1,0 +1,6 @@
+.loading-img {
+  background-image: url('/assets/images/loading-overlay.gif');
+  width: 100vw;
+  height: calc(100vh - 302px);
+  background-position-y: center;
+}

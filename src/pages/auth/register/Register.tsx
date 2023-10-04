@@ -1,11 +1,13 @@
-import { ChangeEvent, useContext, useRef } from "react";
+import { ChangeEvent, useContext, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { PropsWithChildren } from 'react';
 import AuthContext from 'store/context/auth-context';
 import AuthLayout from 'layout/auth/Auth';
+import LoadingOverlay from 'layout/loading-overlay/LoadingOverlay';
 
 function Register(props: PropsWithChildren) {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   function clickLogoutLinkHandler() {
     navigate("/login");
@@ -39,13 +41,14 @@ function Register(props: PropsWithChildren) {
       return;
     }
 
-    // Nếu thông tin hợp lệ thì lưu lại
+    // Nếu thông tin hợp lệ
+    setLoading(true);
     ctx.onRegister({
       email: emailInputEl.current.value,
       password: passwordInputEl.current.value,
       fullName: FullNameInputEl.current.value,
       phone: PhoneInputEl.current.value,
-    });
+    }).then(() => setLoading(false));
   }
 
   // hàm sử lý thông tin nhập vào của trường số điện thoại, chỉ chấp nhận chữ số
@@ -55,82 +58,86 @@ function Register(props: PropsWithChildren) {
   }
 
   return (
-    <AuthLayout title='Sign Up'>
-      <form>
-        <div className="form-outline">
-          <input
-            ref={FullNameInputEl}
-            placeholder="Full Name"
-            type="text"
-            id="form3Example1cg"
-            className="form-control form-control-lg rounded-0 py-4 shadow-none"
-            onKeyDown={(event) =>
-              event.key === "Enter" ? validateUserInput() : null
-            }
-          />
-        </div>
+    <LoadingOverlay
+      loading={loading}
+    >
+      <AuthLayout title='Sign Up'>
+        <form>
+          <div className="form-outline">
+            <input
+              ref={FullNameInputEl}
+              placeholder="Full Name"
+              type="text"
+              id="form3Example1cg"
+              className="form-control form-control-lg rounded-0 py-4 shadow-none"
+              onKeyDown={(event) =>
+                event.key === "Enter" ? validateUserInput() : null
+              }
+            />
+          </div>
 
-        <div className="form-outline">
-          <input
-            ref={emailInputEl}
-            placeholder="Email"
-            type="email"
-            id="form3Example3cg"
-            className="form-control form-control-lg rounded-0 py-4 shadow-none"
-            onKeyDown={(event) =>
-              event.key === "Enter" ? validateUserInput() : null
-            }
-          />
-        </div>
+          <div className="form-outline">
+            <input
+              ref={emailInputEl}
+              placeholder="Email"
+              type="email"
+              id="form3Example3cg"
+              className="form-control form-control-lg rounded-0 py-4 shadow-none"
+              onKeyDown={(event) =>
+                event.key === "Enter" ? validateUserInput() : null
+              }
+            />
+          </div>
 
-        <div className="form-outline">
-          <input
-            ref={passwordInputEl}
-            placeholder="Password"
-            type="password"
-            id="form3Example4cg"
-            className="form-control form-control-lg rounded-0 py-4 shadow-none"
-            onKeyDown={(event) =>
-              event.key === "Enter" ? validateUserInput() : null
-            }
-          />
-        </div>
+          <div className="form-outline">
+            <input
+              ref={passwordInputEl}
+              placeholder="Password"
+              type="password"
+              id="form3Example4cg"
+              className="form-control form-control-lg rounded-0 py-4 shadow-none"
+              onKeyDown={(event) =>
+                event.key === "Enter" ? validateUserInput() : null
+              }
+            />
+          </div>
 
-        <div className="form-outline mb-4">
-          <input
-            ref={PhoneInputEl}
-            placeholder="Phone"
-            type="phone"
-            id="form3Example4cdg"
-            className="form-control form-control-lg rounded-0 py-4 shadow-none"
-            onKeyDown={(event) =>
-              event.key === "Enter" ? validateUserInput() : null
-            }
-            onChange={changePhoneHandler}
-          />
-        </div>
+          <div className="form-outline mb-4">
+            <input
+              ref={PhoneInputEl}
+              placeholder="Phone"
+              type="phone"
+              id="form3Example4cdg"
+              className="form-control form-control-lg rounded-0 py-4 shadow-none"
+              onKeyDown={(event) =>
+                event.key === "Enter" ? validateUserInput() : null
+              }
+              onChange={changePhoneHandler}
+            />
+          </div>
 
-        <div className="d-flex justify-content-center">
-          <button
-            type="button"
-            className="btn btn-dark w-100 p-3"
-            onClick={validateUserInput}
-          >
-            SIGN UP
-          </button>
-        </div>
+          <div className="d-flex justify-content-center">
+            <button
+              type="button"
+              className="btn btn-dark w-100 p-3"
+              onClick={validateUserInput}
+            >
+              SIGN UP
+            </button>
+          </div>
 
-        <p className="text-center text-muted mt-5 mb-0 fst-italic">
-          <span>Login? </span>
-          <a
-            className="text-decoration-none fw-400"
-            onClick={clickLogoutLinkHandler}
-          >
-            click
-          </a>
-        </p>
-      </form>
-    </AuthLayout>
+          <p className="text-center text-muted mt-5 mb-0 fst-italic">
+            <span>Login? </span>
+            <a
+              className="text-decoration-none fw-400"
+              onClick={clickLogoutLinkHandler}
+            >
+              click
+            </a>
+          </p>
+        </form>
+      </AuthLayout>
+    </LoadingOverlay>
   );
 }
 
