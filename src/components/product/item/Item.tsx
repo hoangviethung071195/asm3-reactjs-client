@@ -1,12 +1,11 @@
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { ProductModel } from 'models/Product.model';
 import { PropsWithChildren, } from 'react';
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { counterActions } from 'store/redux/popup';
 import { getFileUrl } from '../../../utils/helpers/file';
 import { getVNDUnit } from '../../../utils/helpers/order';
-import { scrollToTop } from '../../../utils/helpers/browser';
-import { counterActions } from 'store/redux/popup';
 import s from './item.module.scss';
-import { ProductModel } from 'models/Product.model';
 
 function Item(props: PropsWithChildren<{
   product: ProductModel;
@@ -17,7 +16,6 @@ function Item(props: PropsWithChildren<{
   function showDetailProduct(id = '') {
     if (!id) return;
     if (props.isNavigateToDetailPage) {
-      scrollToTop();
       navigate("/detail/" + id);
     } else {
       dispatch(counterActions.SHOW_POPUP(props.product));

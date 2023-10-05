@@ -10,10 +10,12 @@ import { getVNDUnit } from '../../utils/helpers/order';
 import LoadingOverlay from 'layout/loading-overlay/LoadingOverlay';
 import NumberInput from 'components/form/number-input/number-input';
 import { cloneDeep } from 'lodash';
+import LayoutContext from 'store/context/LayoutContext';
 
 function Detail(props: PropsWithChildren) {
   const [loading, setLoading] = useState(true);
   const { onAddToCart, carts: originCarts } = useContext(AuthContext);
+  const { scrollToTop } = useContext(LayoutContext);
   const carts = cloneDeep(originCarts);
   const navigate = useNavigate();
   const [products, setProducts] = useState<ProductModel[]>([]);
@@ -23,6 +25,7 @@ function Detail(props: PropsWithChildren) {
 
   useEffect(() => {
     if (!id) return;
+    scrollToTop();
     setLoading(true);
     getProduct(id)
       .then(r => {

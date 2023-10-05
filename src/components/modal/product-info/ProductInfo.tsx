@@ -24,7 +24,7 @@ const modalStyles: Styles = {
     transform: "translate(-50%, -50%)",
     zIndex: 10,
     width: "auto",
-    maxWidth: "800px",
+    maxWidth: '800px'
   },
 };
 
@@ -58,12 +58,12 @@ export default function ProductInfo(props: PropsWithChildren) {
 
         <section className="fst-italic">
           <div className="row">
-            <a className="col-12 col-sm-6 d-flex p-4 pe-sm-0 pe-4">
+            <a className="col-12 col-md-5 d-flex p-4 pe-sm-0 pe-4">
               <div className='p-4'>
                 <img src={getFileUrl(product.fileIds?.[0])} alt="" className='card-img img-fluid' onClick={navigateToDetail} />
               </div>
             </a>
-            <div className="col-12 col-sm-6 p-5">
+            <div className="col-12 col-md-7 p-5">
               <div className="card-body">
                 <h4>{product.title}</h4>
                 <p className="text-1 text-muted py-2">

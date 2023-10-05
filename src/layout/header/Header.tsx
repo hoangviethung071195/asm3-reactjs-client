@@ -1,16 +1,20 @@
 import Menu from 'components/menu/Menu';
 import SideBar from 'layout/side-bar/SideBar';
-import { PropsWithChildren, useContext, useState } from "react";
+import { PropsWithChildren, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from 'store/context/AuthContext';
 import LayoutContext from 'store/context/LayoutContext';
+import s from './header.module.scss';
+import { useScrollDirection } from 'react-use-scroll-direction';
 
 export default function Header(props: PropsWithChildren) {
   const navigate = useNavigate();
   const ctx = useContext(AuthContext);
   const { isAuthenticated } = ctx;
   const [isShowSidebar, setIsShowSidebar] = useState(false);
-  const { toggleLayoutClassName } = useContext(LayoutContext);
+  const { toggleLayoutClassName, layoutEl } = useContext(LayoutContext);
+  const { isScrollingUp, isScrollingDown } = useScrollDirection(layoutEl);
+  const [isHeaderCollapse, setIsHeaderCollapse] = useState(false);
 
   function navigateTo(path: string = '') {
     return () => {
@@ -33,8 +37,18 @@ export default function Header(props: PropsWithChildren) {
     setIsShowSidebar(isShow);
   }
 
+  useEffect(() => {
+    if (isScrollingUp && !isScrollingDown) {
+      setIsHeaderCollapse(false);
+      console.log('Up');
+    } else if (isScrollingDown && !isScrollingUp) {
+      setIsHeaderCollapse(true);
+      console.log('down');
+    }
+  }, [isScrollingUp, isScrollingDown]);
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-light templatemo_main_nav">
+    <nav className={`animate__animated ${isHeaderCollapse ? 'animate__slideOutUp' : 'animate__slideInDown'} ${s['navbar']} navbar navbar-expand-lg navbar-light templatemo_main_nav`}>
       <div className="container d-flex justify-content-between align-items-center">
         <div className='collapse navbar-collapse'>
           <Menu></Menu>

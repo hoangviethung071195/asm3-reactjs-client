@@ -1,18 +1,19 @@
 import s from './home.module.scss';
 import { ProductModel } from 'models/Product.model';
 import queryString from 'query-string';
-import { PropsWithChildren, useEffect, useState } from "react";
+import { PropsWithChildren, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getRelativeImageSrc } from 'utils/helpers/file';
 import List from "../../components/product/list/List";
 import { getProducts } from "../../service/products.service";
 import { CATEGORIES } from '../../utils/constant/Category';
-import { scrollToTop } from '../../utils/helpers/browser';
 import LoadingOverlay from 'layout/loading-overlay/LoadingOverlay';
+import LayoutContext from 'store/context/LayoutContext';
 
 function Home(props: PropsWithChildren) {
   const [products, setProducts] = useState<ProductModel[]>([]);
   const [loading, setLoading] = useState(true);
+  const { scrollToTop } = useContext(LayoutContext);
   const navigate = useNavigate();
 
   useEffect(() => {
