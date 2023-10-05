@@ -72,7 +72,10 @@ function SideBar(props: PropsWithChildren<{
         {
           isAuthenticated &&
           <li
-            onClick={onLogout}
+            onClick={() => {
+              onLogout();
+              closeSidebarHandler();
+            }}
             className={s['item'] + " nav-link me-3 fs-6 fw-bolder text-hover"}
           >
             <i className='fa fa-sign-out'></i> Logout

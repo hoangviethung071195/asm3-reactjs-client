@@ -86,7 +86,7 @@ function Detail(props: PropsWithChildren) {
           <h1 className="fw-bolder text-black my-4 fst-italic">
             {product.category}
           </h1>
-          <p className="text-1 text-muted my-4 pt-3">{product.category}</p>
+          <p className="text-1 text-muted my-4 pt-2">{product.category}</p>
         </div>
       </div>
       {/* <!-- Modal --> */}

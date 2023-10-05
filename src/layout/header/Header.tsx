@@ -63,7 +63,7 @@ export default function Header(props: PropsWithChildren) {
           </ul>
         </div>
         <button
-          className="navbar-toggler border-0"
+          className={s['navbar-toggler-btn'] + " navbar-toggler border-0"}
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#templatemo_main_nav"

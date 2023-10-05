@@ -75,8 +75,8 @@ export default function Checkout(props: PropsWithChildren) {
       <div className="bg-light py-5">
         <div className="container d-flex justify-content-between">
           <h1 className="fw-bolder text-black my-4 fst-italic">CHECKOUT</h1>
-          <p className="text-1 my-4 pt-3">
-            HOME / CART / <span className="text-muted">CHECKOUT</span>
+          <p className="text-1 my-4 pt-2">
+            <span className="text-muted">CHECKOUT</span>
           </p>
         </div>
       </div>
@@ -84,7 +84,7 @@ export default function Checkout(props: PropsWithChildren) {
       <section className="container py-5 fst-italic">
         <h5 className="fw-bolder text-black mb-4">BILLING DETAILS</h5>
         <div className="row g-0">
-          <form className="p-5 ps-0 pt-0 col-8" ref={formEl}>
+          <form className="pe-md-5 ps-0 pt-0 col-12 col-md-7" ref={formEl}>
             <div className="mb-3">
               <label htmlFor="1" className="text-2 fw-normal mb-2">
                 FULL NAME:
@@ -146,7 +146,7 @@ export default function Checkout(props: PropsWithChildren) {
           </form>
 
           {/* Cart Total */}
-          <div className="col-4 bg-white">
+          <div className=" col-12 pt-4 col-md-5 bg-white">
             <div className="p-5 bg-light">
               <h4 className="fw-bolder mb-5 mt-2 pt-1 text-uppercase">
                 YOUR ORDER

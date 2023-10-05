@@ -92,7 +92,7 @@ function Home(props: PropsWithChildren) {
               <div className={"row p-5 " + s["banner__inner"]}>
                 <div className="mx-auto col-md-8 col-lg-6 order-lg-last"></div>
                 <div className="col-lg-6 mb-0 d-flex align-items-center">
-                  <div className="text-align-left align-self-center">
+                  <div className="text-align-left align-self-center d-none d-sm-block">
                     <p className="text-2 text-uppercase">New inspiration</p>
                     <h3 className="text-h1 text-uppercase">
                       20% off on new <br /> season

@@ -83,7 +83,7 @@ function Shop(props: PropsWithChildren) {
       <div className="bg-light py-5">
         <div className="container d-flex justify-content-between">
           <h1 className="fw-bolder text-black my-4 fst-italic">SHOP</h1>
-          <p className="text-1 text-muted my-4 pt-3">SHOP</p>
+          <p className="text-1 text-muted my-4 pt-2">SHOP</p>
         </div>
       </div>
 
