@@ -22,6 +22,7 @@ function Detail(props: PropsWithChildren) {
   const [product, setProduct] = useState<ProductModel>(initialProduct);
   const [quantity, setQuantity] = useState<number>(1);
   const { id } = useParams();
+  const relatedProducts = products.filter((p) => p._id !== product._id);
 
   useEffect(() => {
     if (!id) return;
@@ -76,7 +77,7 @@ function Detail(props: PropsWithChildren) {
       setQuantity(quantity - 1);
     }
   }
-
+  console.log('product ', product);
   return (
     <LoadingOverlay
       loading={loading}
@@ -192,24 +193,29 @@ function Detail(props: PropsWithChildren) {
               </div>
             </div>
             <div className="row mt-5">
-              <div className="col-7">
+              <div className="col-12 col-sm-7">
                 <button className="btn btn-dark btn-special">
                   DESCRIPTION
                 </button>
                 <p className="text-h2 py-4">PRODUCT DESCIPTION</p>
-                <p className="text-2 pre-line">
-                  {product.longDescription}
+                <p className="text-2">
+                  {product.longDescription.split('\n').map((d, i) => (
+                    <>
+                      {!!i && <br />}
+                      {d}
+                    </>
+                  ))}
                 </p>
               </div>
             </div>
 
-            <div className="row mt-4">
+            {!!relatedProducts.length && <div className="row mt-4">
               <p className="text-h2 py-4 text-uppercase">Related Products</p>
               <List
-                products={products.filter((p) => p._id !== product._id)}
+                products={relatedProducts}
                 isNavigateToDetailPage
               ></List>
-            </div>
+            </div>}
           </div>
         </section >
       )
